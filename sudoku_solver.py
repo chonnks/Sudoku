@@ -4,7 +4,10 @@
 #I used documentation from stackoverflow and computerphile's video 
 #but every part of the code can and will be explained
 
+#to run the code, you should be able to run it, if you want to change then numbers, you have to do it manually in your IDE
+
 #grid for sudoku: 9x9  with prefilled number
+
 SudokuGrid = [ #this is our starting board
     [7, 8, 0, 4, 0, 0, 1, 2, 0],
     [6, 0, 0, 0, 7, 5, 0, 0, 9],
@@ -17,8 +20,19 @@ SudokuGrid = [ #this is our starting board
     [0, 4, 9, 2, 0, 6, 0, 0, 7]
 ]
 
+#string method to split a string into a list of smaller strings
+def InitializeSudokuIntoString(sudoku_string):
+    """Initializes the Sudoku grid from a string representation."""
+    SudokuRows = sudoku_string.split('\n')
+    SudokuGridString = [list(map(int, row.split())) for row in SudokuRows]
+    return SudokuGridString
+
+
 #algorithm that actually solves the sudoku board
 def SudokuSolve(grid):
+
+    """Solves Sudoku using a backtracking algorithm."""
+
     FindSolution = FindSquare(grid)
     if not FindSolution: 
         return True # means that we found solution
@@ -39,7 +53,11 @@ def SudokuSolve(grid):
 
 #function to find if current board is valid in terms of sudoku
 def ValidBoard(grid, number, position):
+
+    """ Checks if the current board is valid in terms of Sudoku rules."""
+
     #checking row using loops
+
     for i in range(len(grid[0])):
         if grid[position[0]][i] == number and position[1] != i: #scan if number is in row, if it is just avoid that row 
             return False
@@ -66,6 +84,9 @@ def ValidBoard(grid, number, position):
 
 # function that actually prints out grid
 def PrintGrid(grid):
+    
+    """ Prints the Sudoku grid in a readable format."""
+
     for i in range(len(grid)):
         if i % 3 == 0 and i != 0: 
             print("- - - - - - - - - - - - - ") 
@@ -83,6 +104,9 @@ def PrintGrid(grid):
 
 #function to find the empty square to find the correct number using loops
 def FindSquare(grid):
+
+    """Finds the empty square to determine the correct number."""
+
     for i in range(len(grid)):
         for j in range(len(grid[0])):
             if grid[i][j] == 0:
